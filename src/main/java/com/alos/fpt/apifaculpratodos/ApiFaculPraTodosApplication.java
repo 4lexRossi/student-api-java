@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ApiFaculPraTodosApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ApiFaculPraTodosApplication.class, args);
-	}
+  public static void main(String[] args) {
+    SpringApplication.run(ApiFaculPraTodosApplication.class, args);
+  }
 
 }
