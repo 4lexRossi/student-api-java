@@ -2,6 +2,8 @@ package com.alos.fpt.apifaculpratodos.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -10,16 +12,17 @@ import javax.persistence.Table;
 public class Student {
 
   @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
   private String id;
 
-  @Column(name = "name")
+  @Column(name = "name", nullable = true)
   private String name;
 
   @Column(name = "last_name")
   private String lastName;
 
-  @Column(name = "email")
+  @Column(name = "email", nullable = true, unique = true)
   private String email;
 
   @Column(name = "college_name")
@@ -31,7 +34,7 @@ public class Student {
   @Column(name = "course_area")
   private String courseArea;
 
-  @Column(name = "monthly_value")
+  @Column(name = "monthly_value", nullable = true)
   private String monthlyValue;
 
   public String getId() {
