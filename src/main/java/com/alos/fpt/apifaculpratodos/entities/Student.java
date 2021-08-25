@@ -16,8 +16,8 @@ public class Student {
   @Column(name = "id")
   private String id;
 
-  @Column(name = "name", nullable = true)
-  private String name;
+  @Column(name = "first_name", nullable = true)
+  private String firstName;
 
   @Column(name = "last_name")
   private String lastName;
@@ -35,7 +35,7 @@ public class Student {
   private String courseArea;
 
   @Column(name = "monthly_value", nullable = true)
-  private String monthlyValue;
+  private int monthlyValue;
 
   public String getId() {
     return id;
@@ -70,12 +70,12 @@ public class Student {
     this.id = id;
   }
 
-  public String getName() {
-    return name;
+  public String getFirstName() {
+    return firstName;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
   }
 
   public String getLastName() {
@@ -118,11 +118,11 @@ public class Student {
     this.courseArea = courseArea;
   }
 
-  public String getMonthlyValue() {
+  public int getMonthlyValue() {
     return monthlyValue;
   }
 
-  public void setMonthlyValue(String monthlyValue) {
+  public void setMonthlyValue(int monthlyValue) {
     this.monthlyValue = monthlyValue;
   }
 
