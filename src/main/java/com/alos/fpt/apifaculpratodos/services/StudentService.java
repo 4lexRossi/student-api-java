@@ -29,11 +29,11 @@ public class StudentService {
         return studentRepository.findById(id).get();
     }
 
-    public String buildId(String email) {
-        if(email.length() != 0) {
-            return email;
+    public String buildId(String email, Integer age) {
+        if(email.length() != 0 || age != null) {
+            return email + age;
         }
-        return "Missing email";
+        return "Missing email or age values";
     }
 
 }

@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "RegisterStudents")
@@ -19,8 +21,13 @@ public class Student {
   @Column(name = "last_name")
   private String lastName;
 
+  @NotEmpty
+  @NotBlank
   @Column(name = "email", nullable = true, unique = true)
   private String email;
+
+  @Column(name = "age")
+  private int age;
 
   @Column(name = "college_name")
   private String collegeName;
@@ -31,6 +38,8 @@ public class Student {
   @Column(name = "course_area")
   private String courseArea;
 
+  @NotEmpty
+  @NotBlank
   @Column(name = "monthly_value")
   private int monthlyValue;
 
@@ -65,6 +74,14 @@ public class Student {
 
   public void setId(String id) {
     this.id = id;
+  }
+
+  public int getAge() {
+    return age;
+  }
+
+  public void setAge(int age) {
+    this.age = age;
   }
 
   public String getFirstName() {
@@ -125,9 +142,10 @@ public class Student {
 
   @Override
   public String toString() {
-    return "Student [collegeName=" + collegeName + ", courseArea=" + courseArea + ", courseName=" + courseName
-        + ", email=" + email + ", firstName=" + firstName + ", id=" + id + ", lastName=" + lastName + ", monthlyValue="
-        + monthlyValue + "]";
+    return "Student [age=" + age + ", collegeName=" + collegeName + ", courseArea=" + courseArea + ", courseName="
+        + courseName + ", email=" + email + ", firstName=" + firstName + ", id=" + id + ", lastName=" + lastName
+        + ", monthlyValue=" + monthlyValue + "]";
   }
+
 
 }

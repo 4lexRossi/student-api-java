@@ -5,23 +5,27 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import org.springframework.stereotype.Component;
 
-import lombok.Builder;
-import lombok.Data;
-
-@Data
-@Builder
 @Component
 public class MessageResponseDTO {
-    private String message;
+
+    private String msg;
 
     @JsonInclude(Include.NON_NULL)
     private String id;
 
-    public String getMessage() {
-        return message;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }
