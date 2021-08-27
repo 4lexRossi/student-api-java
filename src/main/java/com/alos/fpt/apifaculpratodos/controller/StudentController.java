@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/v1/facul-pra-todos")
 public class StudentController {
 
@@ -86,6 +89,17 @@ public class StudentController {
         studentRepository.save(existingStudent);
 
         return new ResponseEntity<>(existingStudent, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete-student")
+    public ResponseEntity<String> deleteStudentById(@RequestBody Student student) {
+        try {
+            Student studentDeleted = studentService.getStudentById(student.getId());
+            studentRepository.delete(studentDeleted);
+            return new ResponseEntity<>("Student deleted from our database", HttpStatus.CREATED);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
     }
 
 }
