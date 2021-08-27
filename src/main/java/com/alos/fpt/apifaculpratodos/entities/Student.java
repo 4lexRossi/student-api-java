@@ -4,8 +4,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "RegisterStudents")
@@ -21,9 +19,7 @@ public class Student {
   @Column(name = "last_name")
   private String lastName;
 
-  @NotEmpty
-  @NotBlank
-  @Column(name = "email", nullable = true, unique = true)
+  @Column(name = "email", unique = true)
   private String email;
 
   @Column(name = "age")
@@ -38,8 +34,6 @@ public class Student {
   @Column(name = "course_area")
   private String courseArea;
 
-  @NotEmpty
-  @NotBlank
   @Column(name = "monthly_value")
   private int monthlyValue;
 

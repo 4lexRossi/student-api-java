@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -70,5 +71,21 @@ public class StudentController {
         return new ResponseEntity<>(messageResponseDTO, HttpStatus.ACCEPTED);
     }
 
+    @PutMapping("/add-student/{id}")
+    public ResponseEntity<Student> updateBook(@PathVariable(value = "id")String id, @RequestBody Student student) {
+
+        Student existingStudent = studentService.getStudentById(id);
+
+        existingStudent.setFirstName(student.getFirstName());
+        existingStudent.setLastName(student.getLastName());
+        existingStudent.setAge(student.getAge());
+        existingStudent.setCollegeName(student.getCollegeName());
+        existingStudent.setCourseArea(student.getCourseArea());
+        existingStudent.setCourseName(student.getCourseName());
+        existingStudent.setMonthlyValue(student.getMonthlyValue());
+        studentRepository.save(existingStudent);
+
+        return new ResponseEntity<>(existingStudent, HttpStatus.OK);
+    }
 
 }

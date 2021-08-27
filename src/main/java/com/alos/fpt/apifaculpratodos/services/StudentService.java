@@ -25,7 +25,7 @@ public class StudentService {
         return isRegistered;
     }
 
-    public Student getById(String id) {
+    public Student getStudentById(String id) {
         return studentRepository.findById(id).get();
     }
 
