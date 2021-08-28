@@ -23,9 +23,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
-@CrossOrigin
 @RequestMapping("/api/v1/facul-pra-todos")
+@Api(value="Api Rest Students")
+@CrossOrigin(origins="*")
 public class StudentController {
 
     @Autowired
@@ -38,12 +42,14 @@ public class StudentController {
     MessageResponseDTO messageResponseDTO;
 
     @GetMapping("/fetch-students")
+    @ApiOperation(value="Return All Students")
     public List<Student> listAllStudents() {
         List<Student> allStudents = studentRepository.findAll();
         return allStudents;
     }
 
     @GetMapping("/fetch-students/{id}")
+    @ApiOperation(value="Fetch a Student by ID")
     public Student getStudentByIdl(@PathVariable(value = "id")String id) {
         try {
             return studentRepository.findById(id).get();
@@ -53,11 +59,13 @@ public class StudentController {
     }
 
     @GetMapping("/fetch-students/email")
+    @ApiOperation(value="Fetch a Student by email")
     public List<Student> getStudentByEmail(@RequestParam(value = "email")String studentEmail) {
         return studentRepository.findByEmail(studentEmail);
     }
 
     @PostMapping("/add-student")
+    @ApiOperation(value="Register a Student")
     public ResponseEntity<MessageResponseDTO> addStudent(@RequestBody Student student) {
         String id = studentService.buildId(student.getEmail(), student.getAge());
         if(!studentService.checkStudentAlreadyExist(id)) {
@@ -75,6 +83,7 @@ public class StudentController {
     }
 
     @PutMapping("/add-student/{id}")
+    @ApiOperation(value="Update a registered Student")
     public ResponseEntity<Student> updateBook(@PathVariable(value = "id")String id, @RequestBody Student student) {
 
         Student existingStudent = studentService.getStudentById(id);
@@ -92,6 +101,7 @@ public class StudentController {
     }
 
     @DeleteMapping("/delete-student")
+    @ApiOperation(value="Delete a Student sending his ID in the body")
     public ResponseEntity<String> deleteStudentById(@RequestBody Student student) {
         try {
             Student studentDeleted = studentService.getStudentById(student.getId());
