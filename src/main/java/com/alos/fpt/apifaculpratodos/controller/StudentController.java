@@ -50,9 +50,9 @@ public class StudentController {
 
     @GetMapping("/fetch-students/{id}")
     @ApiOperation(value="Fetch a Student by ID")
-    public Student getStudentById(@PathVariable(value = "id")String id) {
+    public Student fetchStudentById(@PathVariable(value = "id")String id) {
         try {
-            return studentRepository.findById(id).get();
+            return studentService.getStudentById(id);
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
@@ -60,7 +60,7 @@ public class StudentController {
 
     @GetMapping("/fetch-students/email")
     @ApiOperation(value="Fetch a Student by email")
-    public List<Student> getStudentByEmail(@RequestParam(value = "email")String studentEmail) {
+    public List<Student> fetchStudentByEmail(@RequestParam(value = "email")String studentEmail) {
         return studentRepository.findByEmail(studentEmail);
     }
 
