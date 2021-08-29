@@ -50,7 +50,7 @@ public class StudentController {
 
     @GetMapping("/fetch-students/{id}")
     @ApiOperation(value="Fetch a Student by ID")
-    public Student getStudentByIdl(@PathVariable(value = "id")String id) {
+    public Student getStudentById(@PathVariable(value = "id")String id) {
         try {
             return studentRepository.findById(id).get();
         } catch (Exception e) {
