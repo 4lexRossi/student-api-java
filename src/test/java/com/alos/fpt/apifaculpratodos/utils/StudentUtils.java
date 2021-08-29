@@ -3,7 +3,7 @@ package com.alos.fpt.apifaculpratodos.utils;
 import com.alos.fpt.apifaculpratodos.entities.Student;
 
 public class StudentUtils {
-    public static Student mockBuildLibrary() {
+    public static Student mockBuildStudent() {
         Student studentMock = new Student();
 
         studentMock.setFirstName("Alex");
@@ -18,7 +18,7 @@ public class StudentUtils {
         return studentMock;
     }
 
-    public static Student mockUpdateLibrary(String id) {
+    public static Student mockUpdateStudent(String id) {
         Student studentUpdateMock = new Student();
 
         studentUpdateMock.setFirstName("AlexUpdate");
@@ -27,7 +27,7 @@ public class StudentUtils {
         studentUpdateMock.setCollegeName("DioUpdate");
         studentUpdateMock.setCourseArea("Spring-bootUpdate");
         studentUpdateMock.setMonthlyValue(10000);
-        studentUpdateMock.setEmail(mockBuildLibrary().getEmail());
+        studentUpdateMock.setEmail(mockBuildStudent().getEmail());
         studentUpdateMock.setId(id);
 
         return studentUpdateMock;
