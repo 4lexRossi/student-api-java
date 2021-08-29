@@ -84,10 +84,12 @@ public class StudentController {
 
     @PutMapping("/add-student/{id}")
     @ApiOperation(value="Update a registered Student")
-    public ResponseEntity<Student> updateBook(@PathVariable(value = "id")String id, @RequestBody Student student) {
+    public ResponseEntity<Student> updateStudent(@PathVariable(value = "id")String id, @RequestBody Student student) {
 
         Student existingStudent = studentService.getStudentById(id);
 
+        existingStudent.getId();
+        existingStudent.getEmail();
         existingStudent.setFirstName(student.getFirstName());
         existingStudent.setLastName(student.getLastName());
         existingStudent.setAge(student.getAge());
