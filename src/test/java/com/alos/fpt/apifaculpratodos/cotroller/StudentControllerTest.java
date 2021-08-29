@@ -4,11 +4,13 @@ import com.alos.fpt.apifaculpratodos.controller.StudentController;
 import com.alos.fpt.apifaculpratodos.entities.Student;
 import com.alos.fpt.apifaculpratodos.repository.StudentRepository;
 import com.alos.fpt.apifaculpratodos.services.StudentService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.alos.fpt.apifaculpratodos.response.MessageResponseDTO;
 
 import static com.alos.fpt.apifaculpratodos.utils.StudentUtils.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -33,6 +35,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -72,6 +75,17 @@ public class StudentControllerTest {
             .andExpect(jsonPath("$.[0].monthlyValue").value(studentList.get(0).getMonthlyValue()))
             .andExpect(jsonPath("$.[0].email").value(studentList.get(0).getEmail()))
             .andExpect(jsonPath("$.[0].id").value(studentList.get(0).getId()));
+    }
+
+    @Test
+    public void should_getStudentById_successfully() throws Exception {
+
+        Student student = mockBuildStudent();
+
+        when(studentService.getStudentById(any())).thenReturn(student);
+        this.mockMvc.perform(get(baseUrl + "/fetch-students").pathInfo("/" + student.getId()))
+            .andExpect(status().isOk())
+            .andDo(MockMvcResultHandlers.print());
     }
 
     @Test
@@ -116,6 +130,30 @@ public class StudentControllerTest {
         messageResponseDTO = (MessageResponseDTO) responseEntity.getBody();
 
         assertEquals("user with email: " + student.getEmail() + " already exists", messageResponseDTO.getMsg());
+    }
+
+    @Test
+    public void updateStudentTest_successfully() throws Exception {
+        Student student = mockBuildStudent();
+        ObjectMapper mapper = new ObjectMapper();
+        Student updateStudent = mockUpdateStudent(student.getId());
+        String jsonString = mapper.writeValueAsString(updateStudent);
+
+        when(studentService.getStudentById(any())).thenReturn(student);
+        this.mockMvc.perform(put(baseUrl + "/add-student/alex@email.com25").contentType(MediaType.APPLICATION_JSON)
+            .content(jsonString)).andExpect(status().isOk())
+            .andExpect(content().json(jsonString));
+    }
+
+    @Test
+    public void deleteBookTest() throws Exception {
+        when(studentService.getStudentById(any())).thenReturn(mockBuildStudent());
+        doNothing().when(studentRepository).delete(mockBuildStudent());
+        this.mockMvc.perform(delete(baseUrl + "/delete-student").contentType(MediaType.APPLICATION_JSON)
+            .content("{\"id\": \"alex@email.com25\"}"))
+            .andExpect(status().isCreated())
+            .andExpect(content().string("Student deleted from our database"));
+
     }
 
     @Test
